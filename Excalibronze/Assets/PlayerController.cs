@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour {
 
 
     public float speed = 3.0F;
+    public float attackCooldown = 0.25F;
+    public bool canAttack = true;
+    public string direction = "up";
     public Sprite up;
     public Sprite right;
     public Sprite down;
@@ -15,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        StartCoroutine(Cooldowns());
     }
 	
 	void FixedUpdate () {
@@ -22,21 +26,44 @@ public class PlayerController : MonoBehaviour {
         {
             transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
             spriteRenderer.sprite = down;
+            direction = "down";
         }
         if (Input.GetAxis("Vertical") >= 0.2)
         {
             transform.position += new Vector3(0, speed * Time.deltaTime, 0);
             spriteRenderer.sprite = up;
+            direction = "up";
         }
         if (Input.GetAxis("Horizontal") <= -0.2)
         {
             transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
             spriteRenderer.sprite = left;
+            direction = "left";
         }
         if (Input.GetAxis("Horizontal") >= 0.2)
         {
             transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
             spriteRenderer.sprite = right;
+            direction = "right";
+        }
+        if ((Input.GetKeyDown("joystick 1 button 2") ||Input.GetKeyDown("x") || Input.GetKeyDown("k")) && canAttack)
+        {
+            GameObject sword = GameObject.FindWithTag("Weapon");
+            sword.SendMessage("Swing", direction);
+            canAttack = false;
         }
     }
+    IEnumerator Cooldowns()
+    {
+        while (true)
+        {
+            if (!canAttack)
+            {
+                yield return new WaitForSeconds(attackCooldown);
+                canAttack = true;
+            }
+            yield return new WaitForSeconds(0.0F);
+        }
+    }
+
 }
