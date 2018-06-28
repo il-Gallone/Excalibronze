@@ -436,7 +436,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shortSword: {fileID: 21300000, guid: 70767e82523448a428856be3be6722ee, type: 3}
-  hookedScimatar: {fileID: 21300000, guid: 8a531a03a75695c4abfe9d4ca5ff036a, type: 3}
+  hookedScimitar: {fileID: 21300000, guid: 8a531a03a75695c4abfe9d4ca5ff036a, type: 3}
+  mode: 0
 --- !u!61 &483219553
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     public float speed = 3.0F;
     public float attackCooldown = 0.25F;
+    public int magicMode = 0;
     public bool canAttack = true;
     public string direction = "up";
     public Sprite up;
@@ -30,11 +31,14 @@ public class PlayerController : MonoBehaviour {
                 {
                     GameObject sword = GameObject.FindWithTag("Weapon");
                     sword.SendMessage("ChangeMode", 3);
+                    magicMode = 3;
                 }
                 if (Input.GetAxis("Horizontal") > 0.0F)
                 {
                     GameObject sword = GameObject.FindWithTag("Weapon");
                     sword.SendMessage("ChangeMode", 1);
+                    magicMode = 1;
+                    attackCooldown = 0.60F;
                 }
             }
             if (Mathf.Abs(Input.GetAxis("Horizontal")) < Mathf.Abs(Input.GetAxis("Vertical")))
@@ -43,12 +47,16 @@ public class PlayerController : MonoBehaviour {
                 {
                     GameObject sword = GameObject.FindWithTag("Weapon");
                     sword.SendMessage("ChangeMode", 2);
+                    magicMode = 2;
+                    attackCooldown = 0.5F;
                 }
                 if (Input.GetAxis("Vertical") > 0.0F)
                 {
                     int zero = 0; //Potential work around for bug
                     GameObject sword = GameObject.FindWithTag("Weapon");
                     sword.SendMessage("ChangeMode", zero);
+                    magicMode = 0;
+                    attackCooldown = 0.25F;
                 }
             }
         }

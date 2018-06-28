@@ -6,7 +6,8 @@ public class SwordSwing : MonoBehaviour {
 
     SpriteRenderer spriteRenderer;
     public Sprite shortSword;
-    public Sprite hookedScimatar;
+    public Sprite hookedScimitar;
+    public Sprite broadSword;
     public int mode = 0; //0 = Shortsword, 1 = Hooked Scimitar, 2 = Broadsword, 3 = Dual Daggers.
 
 	// Use this for initialization
@@ -38,12 +39,17 @@ public class SwordSwing : MonoBehaviour {
         if(mode == 0)
         {
             spriteRenderer.sprite = shortSword;
-            StartCoroutine(ShortSwordAnimation(new Vector3(0, 0, 90), 0.25F));
+            StartCoroutine(SwordAnimation(new Vector3(0, 0, 90), 0.25F));
         }
         if(mode == 1)
         {
-            spriteRenderer.sprite = hookedScimatar;
-            StartCoroutine(HookedScimatarAnimation(new Vector3(0, 0, 90), 0.15F));
+            spriteRenderer.sprite = hookedScimitar;
+            StartCoroutine(HookedScimitarAnimation(new Vector3(0, 0, 90), 0.15F));
+        }
+        if (mode == 2)
+        {
+            spriteRenderer.sprite = broadSword;
+            StartCoroutine(SwordAnimation(new Vector3(0, 0, 90), 0.5F));
         }
     }
 
@@ -52,7 +58,7 @@ public class SwordSwing : MonoBehaviour {
         mode = modeSelect;
     }
 
-    IEnumerator ShortSwordAnimation(Vector3 angle, float time)
+    IEnumerator SwordAnimation(Vector3 angle, float time)
     {
         var startAngle = transform.rotation;
         var endAngle = Quaternion.Euler(transform.eulerAngles + angle);
@@ -64,7 +70,7 @@ public class SwordSwing : MonoBehaviour {
         spriteRenderer.enabled = false;
     }
 
-    IEnumerator HookedScimatarAnimation(Vector3 angle, float time)
+    IEnumerator HookedScimitarAnimation(Vector3 angle, float time)
     {
         var startAngle = transform.rotation;
         var endAngle = Quaternion.Euler(transform.eulerAngles + angle);
