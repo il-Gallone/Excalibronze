@@ -17,22 +17,22 @@ public class SwordSwing : MonoBehaviour {
     {
         if(direction == "up")
         {
-            transform.eulerAngles = new Vector3(0, 0, 40);
+            transform.eulerAngles = new Vector3(0, 0, -40);
         }
         if (direction == "right")
         {
-            transform.eulerAngles = new Vector3(0, 0, -50);
+            transform.eulerAngles = new Vector3(0, 0, -130);
         }
         if (direction == "down")
         {
-            transform.eulerAngles = new Vector3(0, 0, -140);
+            transform.eulerAngles = new Vector3(0, 0, 140);
         }
         if (direction == "left")
         {
-            transform.eulerAngles = new Vector3(0, 0, 130);
+            transform.eulerAngles = new Vector3(0, 0, 50);
         }
         spriteRenderer.enabled = true;
-        StartCoroutine(Animation(new Vector3(0, 0, -90), 0.25F));
+        StartCoroutine(Animation(new Vector3(0, 0, 90), 0.25F));
     }
 
     IEnumerator Animation(Vector3 angle, float time)
