@@ -7,22 +7,35 @@ public class PlayerController : MonoBehaviour {
 
     public float speed = 3.0F;
     public float attackCooldown = 0.25F;
+    public float mana = 25.0F;
+    public float manaCap = 25.0F;
     public int magicMode = 0;
     public bool canAttack = true;
+    public bool burnOut = false;
     public string direction = "up";
     public Sprite up;
     public Sprite right;
     public Sprite down;
     public Sprite left;
     SpriteRenderer spriteRenderer;
+    public GameObject firePrefab;
 
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        StartCoroutine(Cooldowns());
+        StartCoroutine(AttackCooldown());
+        StartCoroutine(MagicCooldown());
     }
 	
 	void FixedUpdate () {
+        if (mana < manaCap)
+        {
+            mana += Time.deltaTime;
+            if(mana > manaCap)
+            {
+                mana = manaCap;
+            }
+        }
         if (Input.GetKey("joystick 1 button 8") || Input.GetKey("tab") || Input.GetKey("backspace"))
         {
             if (Mathf.Abs(Input.GetAxis("Horizontal")) > Mathf.Abs(Input.GetAxis("Vertical")))
@@ -92,9 +105,42 @@ public class PlayerController : MonoBehaviour {
                 sword.SendMessage("Swing", direction);
                 canAttack = false;
             }
+            if((Input.GetKey("joystick 1 button 1") || Input.GetKey("c") || Input.GetKey("l")) && mana > 0 && !burnOut)
+            {
+                if(magicMode == 0)
+                {
+                    mana -= Time.deltaTime * 5;
+                    for (int i = -1; i < 2; i++)
+                    {
+                        GameObject fire = (GameObject)GameObject.Instantiate(firePrefab, transform.position, transform.rotation);
+                        if (direction == "up")
+                        {
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), 6, 0);
+                        }
+                        if (direction == "right")
+                        {
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(6, Random.Range(-2 + i * 2, 2 + i * 2), 0);
+                        }
+                        if (direction == "left")
+                        {
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(-6, Random.Range(-2 + i * 2, 2 + i * 2), 0);
+                        }
+                        if (direction == "down")
+                        {
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), -6, 0);
+                        }
+
+                        Destroy(fire, 0.3f);
+                    }
+                    if(mana <= 0)
+                    {
+                        burnOut = true;
+                    }
+                }
+            }
         }
     }
-    IEnumerator Cooldowns()
+    IEnumerator AttackCooldown()
     {
         while (true)
         {
@@ -106,5 +152,18 @@ public class PlayerController : MonoBehaviour {
             yield return new WaitForSeconds(0.0F);
         }
     }
+    IEnumerator MagicCooldown()
+    {
+        while (true)
+        {
+            if (burnOut)
+            {
+                yield return new WaitForSeconds(5.0F);
+                burnOut = false;
+            }
+            yield return new WaitForSeconds(0.0F);
+        }
+    }
+
 
 }

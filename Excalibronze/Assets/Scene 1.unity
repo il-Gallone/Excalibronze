@@ -145,12 +145,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   attackCooldown: 0.25
+  mana: 25
+  manaCap: 25
+  magicMode: 0
   canAttack: 1
+  burnOut: 0
   direction: up
   up: {fileID: 21300000, guid: 27901ca8b8f00e24889fe5af5edb3dff, type: 3}
   right: {fileID: 21300000, guid: fdd06ac230333ac45a197a9801288d77, type: 3}
   down: {fileID: 21300000, guid: e42bbcf9e48b0fa44910aae69825c042, type: 3}
   left: {fileID: 21300000, guid: 7ce40de564d35924b8ef184dfd06a853, type: 3}
+  firePrefab: {fileID: 1463402103848706, guid: 68e1d5d4cf1d3744ebee19ae78db2f81, type: 2}
 --- !u!61 &99640441
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -437,6 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shortSword: {fileID: 21300000, guid: 70767e82523448a428856be3be6722ee, type: 3}
   hookedScimitar: {fileID: 21300000, guid: 8a531a03a75695c4abfe9d4ca5ff036a, type: 3}
+  broadSword: {fileID: 21300000, guid: 5d6a9829a4f774d429098584670e597b, type: 3}
   mode: 0
 --- !u!61 &483219553
 BoxCollider2D:
