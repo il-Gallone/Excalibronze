@@ -5,6 +5,9 @@ using UnityEngine;
 public class SwordSwing : MonoBehaviour {
 
     SpriteRenderer spriteRenderer;
+    public Sprite shortSword;
+    public Sprite hookedScimatar;
+    public int mode = 0; //0 = Shortsword, 1 = Hooked Scimitar, 2 = Broadsword, 3 = Dual Daggers.
 
 	// Use this for initialization
 	void Start () {
@@ -32,10 +35,24 @@ public class SwordSwing : MonoBehaviour {
             transform.eulerAngles = new Vector3(0, 0, 50);
         }
         spriteRenderer.enabled = true;
-        StartCoroutine(Animation(new Vector3(0, 0, 90), 0.25F));
+        if(mode == 0)
+        {
+            spriteRenderer.sprite = shortSword;
+            StartCoroutine(ShortSwordAnimation(new Vector3(0, 0, 90), 0.25F));
+        }
+        if(mode == 1)
+        {
+            spriteRenderer.sprite = hookedScimatar;
+            StartCoroutine(HookedScimatarAnimation(new Vector3(0, 0, 90), 0.15F));
+        }
     }
 
-    IEnumerator Animation(Vector3 angle, float time)
+    void ChangeMode(int modeSelect)
+    {
+        mode = modeSelect;
+    }
+
+    IEnumerator ShortSwordAnimation(Vector3 angle, float time)
     {
         var startAngle = transform.rotation;
         var endAngle = Quaternion.Euler(transform.eulerAngles + angle);
@@ -44,6 +61,25 @@ public class SwordSwing : MonoBehaviour {
             transform.rotation = Quaternion.Lerp(startAngle, endAngle, i);
             yield return null;
         }
+        spriteRenderer.enabled = false;
+    }
+
+    IEnumerator HookedScimatarAnimation(Vector3 angle, float time)
+    {
+        var startAngle = transform.rotation;
+        var endAngle = Quaternion.Euler(transform.eulerAngles + angle);
+        for (float i = 0.0F; i < 1; i += Time.deltaTime / time)
+        {
+            transform.rotation = Quaternion.Lerp(startAngle, endAngle, i);
+            yield return null;
+        }
+        spriteRenderer.flipX = true;
+        for (float i = 0.0F; i < 1; i += Time.deltaTime / (time*2))
+        {
+            transform.rotation = Quaternion.Lerp(endAngle, startAngle, i);
+            yield return null;
+        }
+        spriteRenderer.flipX = false;
         spriteRenderer.enabled = false;
     }
 }

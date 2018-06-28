@@ -22,35 +22,68 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
-        if (Input.GetAxis("Vertical") <= -0.2)
+        if (Input.GetKey("joystick 1 button 8") || Input.GetKey("tab") || Input.GetKey("backspace"))
         {
-            transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
-            spriteRenderer.sprite = down;
-            direction = "down";
+            if (Mathf.Abs(Input.GetAxis("Horizontal")) > Mathf.Abs(Input.GetAxis("Vertical")))
+            {
+                if (Input.GetAxis("Horizontal") < 0.0F)
+                {
+                    GameObject sword = GameObject.FindWithTag("Weapon");
+                    sword.SendMessage("ChangeMode", 3);
+                }
+                if (Input.GetAxis("Horizontal") > 0.0F)
+                {
+                    GameObject sword = GameObject.FindWithTag("Weapon");
+                    sword.SendMessage("ChangeMode", 1);
+                }
+            }
+            if (Mathf.Abs(Input.GetAxis("Horizontal")) < Mathf.Abs(Input.GetAxis("Vertical")))
+            {
+                if (Input.GetAxis("Vertical") < 0.0F)
+                {
+                    GameObject sword = GameObject.FindWithTag("Weapon");
+                    sword.SendMessage("ChangeMode", 2);
+                }
+                if (Input.GetAxis("Vertical") > 0.0F)
+                {
+                    int zero = 0; //Potential work around for bug
+                    GameObject sword = GameObject.FindWithTag("Weapon");
+                    sword.SendMessage("ChangeMode", zero);
+                }
+            }
         }
-        if (Input.GetAxis("Vertical") >= 0.2)
+        else
         {
-            transform.position += new Vector3(0, speed * Time.deltaTime, 0);
-            spriteRenderer.sprite = up;
-            direction = "up";
-        }
-        if (Input.GetAxis("Horizontal") <= -0.2)
-        {
-            transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
-            spriteRenderer.sprite = left;
-            direction = "left";
-        }
-        if (Input.GetAxis("Horizontal") >= 0.2)
-        {
-            transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
-            spriteRenderer.sprite = right;
-            direction = "right";
-        }
-        if ((Input.GetKeyDown("joystick 1 button 2") ||Input.GetKeyDown("x") || Input.GetKeyDown("k")) && canAttack)
-        {
-            GameObject sword = GameObject.FindWithTag("Weapon");
-            sword.SendMessage("Swing", direction);
-            canAttack = false;
+            if (Input.GetAxis("Vertical") <= -0.2)
+            {
+                transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
+                spriteRenderer.sprite = down;
+                direction = "down";
+            }
+            if (Input.GetAxis("Vertical") >= 0.2)
+            {
+                transform.position += new Vector3(0, speed * Time.deltaTime, 0);
+                spriteRenderer.sprite = up;
+                direction = "up";
+            }
+            if (Input.GetAxis("Horizontal") <= -0.2)
+            {
+                transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
+                spriteRenderer.sprite = left;
+                direction = "left";
+            }
+            if (Input.GetAxis("Horizontal") >= 0.2)
+            {
+                transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+                spriteRenderer.sprite = right;
+                direction = "right";
+            }
+            if ((Input.GetKeyDown("joystick 1 button 2") || Input.GetKeyDown("x") || Input.GetKeyDown("k")) && canAttack)
+            {
+                GameObject sword = GameObject.FindWithTag("Weapon");
+                sword.SendMessage("Swing", direction);
+                canAttack = false;
+            }
         }
     }
     IEnumerator Cooldowns()
