@@ -115,19 +115,19 @@ public class PlayerController : MonoBehaviour {
                         GameObject fire = (GameObject)GameObject.Instantiate(firePrefab, transform.position, transform.rotation);
                         if (direction == "up")
                         {
-                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), 6, 0);
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), 9 - Mathf.Abs(i * 2), 0);
                         }
                         if (direction == "right")
                         {
-                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(6, Random.Range(-2 + i * 2, 2 + i * 2), 0);
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(9 - Mathf.Abs(i * 2), Random.Range(-2 + i * 2, 2 + i * 2), 0);
                         }
                         if (direction == "left")
                         {
-                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(-6, Random.Range(-2 + i * 2, 2 + i * 2), 0);
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(-9 + Mathf.Abs(i*2), Random.Range(-2 + i * 2, 2 + i * 2), 0);
                         }
                         if (direction == "down")
                         {
-                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), -6, 0);
+                            fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), -9 + Mathf.Abs(i * 2), 0);
                         }
 
                         Destroy(fire, 0.3f);

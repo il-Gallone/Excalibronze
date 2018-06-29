@@ -5,17 +5,20 @@ using UnityEngine;
 public class SwordSwing : MonoBehaviour {
 
     SpriteRenderer spriteRenderer;
+    Collider2D[] colliders;
     public Sprite shortSword;
     public Sprite hookedScimitar;
     public Sprite broadSword;
     public int mode = 0; //0 = Shortsword, 1 = Hooked Scimitar, 2 = Broadsword, 3 = Dual Daggers.
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+    {
+        colliders = gameObject.GetComponents<BoxCollider2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
-	}
+        colliders[1].enabled = false;
+    }
 	
 	void Swing (string direction)
     {
@@ -56,6 +59,16 @@ public class SwordSwing : MonoBehaviour {
     void ChangeMode(int modeSelect)
     {
         mode = modeSelect;
+        if (mode != 2)
+        {
+            colliders[0].enabled = true;
+            colliders[1].enabled = false;
+        }
+        if (mode == 2)
+        {
+            colliders[0].enabled = false;
+            colliders[1].enabled = true;
+        }
     }
 
     IEnumerator SwordAnimation(Vector3 angle, float time)
