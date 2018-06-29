@@ -147,6 +147,7 @@ MonoBehaviour:
   attackCooldown: 0.25
   mana: 25
   manaCap: 25
+  magicCharge: 0
   magicMode: 0
   canAttack: 1
   burnOut: 0
@@ -156,6 +157,12 @@ MonoBehaviour:
   down: {fileID: 21300000, guid: e42bbcf9e48b0fa44910aae69825c042, type: 3}
   left: {fileID: 21300000, guid: 7ce40de564d35924b8ef184dfd06a853, type: 3}
   firePrefab: {fileID: 1463402103848706, guid: 68e1d5d4cf1d3744ebee19ae78db2f81, type: 2}
+  waterPrefab: {fileID: 1379488630584552, guid: 3846f88208398784f950860771cd2275,
+    type: 2}
+  earthPrefab: {fileID: 1879113557318314, guid: da2f2afe9847607468aab0032bb1558a,
+    type: 2}
+  particlePrefab: {fileID: 1473087680073302, guid: c980024a6f5fa38458d3a541446c8bcc,
+    type: 2}
 --- !u!61 &99640441
 BoxCollider2D:
   m_ObjectHideFlags: 0
