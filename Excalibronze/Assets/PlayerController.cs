@@ -220,19 +220,19 @@ public class PlayerController : MonoBehaviour {
                 }
                 if (magicCharge == 10)
                 {
-                    StartCoroutine(Earth(3));
+                    StartCoroutine(Earth(3, direction, transform.position));
                 }
                 if (magicCharge >= 7.5F)
                 {
-                    StartCoroutine(Earth(2));
+                    StartCoroutine(Earth(2, direction, transform.position));
                 }
                 if (magicCharge >= 5)
                 {
-                    StartCoroutine(Earth(1));
+                    StartCoroutine(Earth(1, direction, transform.position));
                 }
                 if (magicCharge >= 2.5F)
                 {
-                    StartCoroutine(Earth(0));
+                    StartCoroutine(Earth(0, direction, transform.position));
                 }
                 magicCharge = 0;
             }
@@ -262,26 +262,26 @@ public class PlayerController : MonoBehaviour {
             yield return new WaitForSeconds(0.0F);
         }
     }
-    IEnumerator Earth(int stage)
+    IEnumerator Earth(int stage, string originalDirection, Vector3 originalPosition)
     {
         yield return new WaitForSeconds(0.25F * stage);
         for (int i = 0; i <= stage; i++)
         {
-            if (direction == "up")
+            if (originalDirection == "up")
             {
-                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, transform.position + new Vector3(0.5F*stage - i, 1* (stage + 1), 0), transform.rotation);
+                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, originalPosition + new Vector3(0.5F*stage - i, 1* (stage + 1), 0), transform.rotation);
             }
-            if (direction == "right")
+            if (originalDirection == "right")
             {
-                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, transform.position + new Vector3(1 * (stage+1), 0.5F * stage - i, 0), transform.rotation);
+                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, originalPosition + new Vector3(1 * (stage+1), 0.5F * stage - i, 0), transform.rotation);
             }
-            if (direction == "left")
+            if (originalDirection == "left")
             {
-                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, transform.position - new Vector3(1 * (stage + 1), 0.5F * stage - i, 0), transform.rotation);
+                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, originalPosition - new Vector3(1 * (stage + 1), 0.5F * stage - i, 0), transform.rotation);
             }
-            if (direction == "down")
+            if (originalDirection == "down")
             {
-                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, transform.position - new Vector3(0.5F * stage - i, 1 * (stage + 1), 0), transform.rotation);
+                GameObject earth = (GameObject)GameObject.Instantiate(earthPrefab, originalPosition - new Vector3(0.5F * stage - i, 1 * (stage + 1), 0), transform.rotation);
             }
         }
     }
