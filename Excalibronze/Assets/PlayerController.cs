@@ -105,12 +105,6 @@ public class PlayerController : MonoBehaviour {
                 spriteRenderer.sprite = right;
                 direction = "right";
             }
-            if ((Input.GetKeyDown("joystick 1 button 2") || Input.GetKeyDown("x") || Input.GetKeyDown("k")) && canAttack)
-            {
-                GameObject sword = GameObject.FindWithTag("Weapon");
-                sword.SendMessage("Swing", direction);
-                canAttack = false;
-            }
             if((Input.GetKey("joystick 1 button 1") || Input.GetKey("c") || Input.GetKey("l")) && mana > 0 && !burnOut)
             {
                 if(magicMode == 0)
@@ -211,7 +205,13 @@ public class PlayerController : MonoBehaviour {
                     }
                 }
             }
-            if((Input.GetKeyUp("joystick 1 button 1") || Input.GetKeyUp("c") || Input.GetKeyUp("l") ||burnOut) && magicCharge > 0)
+            else if ((Input.GetKeyDown("joystick 1 button 2") || Input.GetKeyDown("x") || Input.GetKeyDown("k")) && canAttack)
+            {
+                GameObject sword = GameObject.FindWithTag("Weapon");
+                sword.SendMessage("Swing", direction);
+                canAttack = false;
+            }
+            if ((Input.GetKeyUp("joystick 1 button 1") || Input.GetKeyUp("c") || Input.GetKeyUp("l") ||burnOut) && magicCharge > 0)
             {
                 mana -= magicCharge;
                 if (mana < 0)
