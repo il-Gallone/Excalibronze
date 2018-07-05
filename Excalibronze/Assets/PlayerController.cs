@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
 
     public float speed = 3.0F;
     public float attackCooldown = 0.25F;
+    public int health = 10;
+    public int healthCap = 10;
     public float mana = 25.0F;
     public float manaCap = 25.0F;
     public float magicCharge = 0.0F;
@@ -138,6 +140,7 @@ public class PlayerController : MonoBehaviour {
                     }
                     if(mana <= 0)
                     {
+                        mana = 0;
                         burnOut = true;
                     }
                 }
@@ -170,6 +173,7 @@ public class PlayerController : MonoBehaviour {
                     }
                     if (mana <= 0)
                     {
+                        mana = 0;
                         burnOut = true;
                     }
                 }
@@ -210,7 +214,11 @@ public class PlayerController : MonoBehaviour {
             if((Input.GetKeyUp("joystick 1 button 1") || Input.GetKeyUp("c") || Input.GetKeyUp("l") ||burnOut) && magicCharge > 0)
             {
                 mana -= magicCharge;
-                if(magicCharge == 10)
+                if (mana < 0)
+                {
+                    mana = 0;
+                }
+                if (magicCharge == 10)
                 {
                     StartCoroutine(Earth(3));
                 }
