@@ -14,7 +14,7 @@ public class SwordSwing : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        colliders = gameObject.GetComponents<BoxCollider2D>();
+        colliders = gameObject.GetComponents<Collider2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
         colliders[1].enabled = false;
@@ -22,44 +22,47 @@ public class SwordSwing : MonoBehaviour {
 	
 	void Swing (string direction)
     {
-        if(direction == "up")
+        if (mode != 3)
         {
-            transform.eulerAngles = new Vector3(0, 0, -40);
-        }
-        if (direction == "right")
-        {
-            transform.eulerAngles = new Vector3(0, 0, -130);
-        }
-        if (direction == "down")
-        {
-            transform.eulerAngles = new Vector3(0, 0, 140);
-        }
-        if (direction == "left")
-        {
-            transform.eulerAngles = new Vector3(0, 0, 50);
-        }
-        spriteRenderer.enabled = true;
-        if(mode == 0)
-        {
-            spriteRenderer.sprite = shortSword;
-            StartCoroutine(SwordAnimation(new Vector3(0, 0, 90), 0.25F));
-        }
-        if(mode == 1)
-        {
-            spriteRenderer.sprite = hookedScimitar;
-            StartCoroutine(HookedScimitarAnimation(new Vector3(0, 0, 90), 0.15F));
-        }
-        if (mode == 2)
-        {
-            spriteRenderer.sprite = broadSword;
-            StartCoroutine(SwordAnimation(new Vector3(0, 0, 90), 0.5F));
+            if (direction == "up")
+            {
+                transform.eulerAngles = new Vector3(0, 0, -40);
+            }
+            if (direction == "right")
+            {
+                transform.eulerAngles = new Vector3(0, 0, -130);
+            }
+            if (direction == "down")
+            {
+                transform.eulerAngles = new Vector3(0, 0, 140);
+            }
+            if (direction == "left")
+            {
+                transform.eulerAngles = new Vector3(0, 0, 50);
+            }
+            spriteRenderer.enabled = true;
+            if (mode == 0)
+            {
+                spriteRenderer.sprite = shortSword;
+                StartCoroutine(SwordAnimation(new Vector3(0, 0, 90), 0.25F));
+            }
+            if (mode == 1)
+            {
+                spriteRenderer.sprite = hookedScimitar;
+                StartCoroutine(HookedScimitarAnimation(new Vector3(0, 0, 90), 0.15F));
+            }
+            if (mode == 2)
+            {
+                spriteRenderer.sprite = broadSword;
+                StartCoroutine(SwordAnimation(new Vector3(0, 0, 90), 0.5F));
+            }
         }
     }
 
     void ChangeMode(int modeSelect)
     {
         mode = modeSelect;
-        if (mode != 2)
+        if (mode != 2 && mode != 3)
         {
             colliders[0].enabled = true;
             colliders[1].enabled = false;
@@ -68,6 +71,11 @@ public class SwordSwing : MonoBehaviour {
         {
             colliders[0].enabled = false;
             colliders[1].enabled = true;
+        }
+        if (mode == 3)
+        {
+            colliders[0].enabled = false;
+            colliders[1].enabled = false; 
         }
     }
 
@@ -101,4 +109,5 @@ public class SwordSwing : MonoBehaviour {
         spriteRenderer.flipX = false;
         spriteRenderer.enabled = false;
     }
+    
 }

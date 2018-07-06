@@ -112,25 +112,48 @@ public class PlayerController : MonoBehaviour {
                     mana -= Time.deltaTime * 5;
                     for (int i = -1; i < 2; i++)
                     {
-                        GameObject fire = (GameObject)GameObject.Instantiate(firePrefab, transform.position, transform.rotation);
+                        GameObject fire;
                         if (direction == "up")
                         {
+                            fire = (GameObject)GameObject.Instantiate(firePrefab, transform.position + new Vector3(0, 0.5F, 0), transform.rotation);
                             fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), 9 - Mathf.Abs(i * 2), 0);
+                            if (Input.GetAxis("Vertical") >= 0.2)
+                            {
+                                fire.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 3);
+                            }
+                            Destroy(fire, 0.3F);
                         }
                         if (direction == "right")
                         {
+                            fire = (GameObject)GameObject.Instantiate(firePrefab, transform.position + new Vector3(0.5F, 0, 0), transform.rotation);
                             fire.GetComponent<Rigidbody2D>().velocity = new Vector3(9 - Mathf.Abs(i * 2), Random.Range(-2 + i * 2, 2 + i * 2), 0);
+                            if (Input.GetAxis("Horizontal") >= 0.2)
+                            {
+                                fire.GetComponent<Rigidbody2D>().velocity += new Vector2(3, 0);
+                            }
+                            Destroy(fire, 0.3F);
                         }
                         if (direction == "left")
                         {
+                            fire = (GameObject)GameObject.Instantiate(firePrefab, transform.position + new Vector3(-0.5F, 0, 0), transform.rotation);
                             fire.GetComponent<Rigidbody2D>().velocity = new Vector3(-9 + Mathf.Abs(i*2), Random.Range(-2 + i * 2, 2 + i * 2), 0);
+                            if (Input.GetAxis("Horizontal") <= -0.2)
+                            {
+                                fire.GetComponent<Rigidbody2D>().velocity += new Vector2(-3, 0);
+                            }
+                            Destroy(fire, 0.3F);
                         }
                         if (direction == "down")
                         {
+                            fire = (GameObject)GameObject.Instantiate(firePrefab, transform.position + new Vector3(0, -0.5F, 0), transform.rotation);
                             fire.GetComponent<Rigidbody2D>().velocity = new Vector3(Random.Range(-2 + i * 2, 2 + i * 2), -9 + Mathf.Abs(i * 2), 0);
+                            if (Input.GetAxis("Vertical") <= -0.2)
+                            {
+                                fire.GetComponent<Rigidbody2D>().velocity += new Vector2(0, -3);
+                            }
+                            Destroy(fire, 0.3F);
                         }
 
-                        Destroy(fire, 0.3F);
                     }
                     if(mana <= 0)
                     {
@@ -143,27 +166,50 @@ public class PlayerController : MonoBehaviour {
                     mana -= Time.deltaTime * 3;
                     for (float i = -1.0F; i < 2.0F; i++)
                     {
-                        GameObject water = (GameObject)GameObject.Instantiate(waterPrefab, transform.position, transform.rotation);
+                        GameObject water;
                         if (direction == "up")
                         {
+                            water = (GameObject)GameObject.Instantiate(waterPrefab, transform.position + new Vector3(0, 0.5F, 0), transform.rotation);
                             water.GetComponent<Rigidbody2D>().velocity = new Vector3(i/3.0F, 11 - Mathf.Abs(i * 2), 0);
+                            if (Input.GetAxis("Vertical") >= 0.2)
+                            {
+                                water.GetComponent<Rigidbody2D>().velocity += new Vector2(0, 3);
+                            }
+                            Destroy(water, 0.5F);
                         }
                         if (direction == "right")
                         {
+                            water = (GameObject)GameObject.Instantiate(waterPrefab, transform.position + new Vector3(0.5F, 0, 0), transform.rotation);
                             water.transform.Rotate(0, 0, -90);
                             water.GetComponent<Rigidbody2D>().velocity = new Vector3(11 - Mathf.Abs(i * 2), i / 3.0F, 0);
+                            if (Input.GetAxis("Horizontal") >= 0.2)
+                            {
+                                water.GetComponent<Rigidbody2D>().velocity += new Vector2(3, 0);
+                            }
+                            Destroy(water, 0.5F);
                         }
                         if (direction == "left")
                         {
+                            water = (GameObject)GameObject.Instantiate(waterPrefab, transform.position + new Vector3(-0.5F, 0, 0), transform.rotation);
                             water.transform.Rotate(0, 0, 90);
                             water.GetComponent<Rigidbody2D>().velocity = new Vector3(-11 + Mathf.Abs(i * 2), i / 3.0F, 0);
+                            if (Input.GetAxis("Horizontal") <= -0.2)
+                            {
+                                water.GetComponent<Rigidbody2D>().velocity += new Vector2(-3, 0);
+                            }
+                            Destroy(water, 0.5F);
                         }
                         if (direction == "down")
                         {
+                            water = (GameObject)GameObject.Instantiate(waterPrefab, transform.position + new Vector3(0, -0.5F, 0), transform.rotation);
                             water.transform.Rotate(0, 0, 180);
                             water.GetComponent<Rigidbody2D>().velocity = new Vector3(i / 3.0F, -11 + Mathf.Abs(i * 2), 0);
+                            if (Input.GetAxis("Vertical") <= -0.2)
+                            {
+                                water.GetComponent<Rigidbody2D>().velocity += new Vector2(0, -3);
+                            }
+                            Destroy(water, 0.5F);
                         }
-                        Destroy(water, 0.5F);
                     }
                     if (mana <= 0)
                     {

@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 483219556}
   - component: {fileID: 483219552}
   m_Layer: 0
-  m_Name: PlaceholderShortSword
+  m_Name: Excalibronze
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
