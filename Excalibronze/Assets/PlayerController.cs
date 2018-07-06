@@ -13,8 +13,10 @@ public class PlayerController : MonoBehaviour {
     public float manaCap = 25.0F;
     public float magicCharge = 0.0F;
     public int magicMode = 0;
+    public bool isCasting = false;
     public bool canAttack = true;
     public bool burnOut = false;
+    public float invincSecs = 0.0F;
     public string direction = "up";
     public Sprite up;
     public Sprite right;
@@ -37,10 +39,14 @@ public class PlayerController : MonoBehaviour {
         if (mana < manaCap)
         {
             mana += Time.deltaTime;
-            if(mana > manaCap)
-            {
-                mana = manaCap;
-            }
+        }
+        if (mana > manaCap)
+        {
+            mana = manaCap;
+        }
+        if (invincSecs > 0)
+        {
+            invincSecs -= Time.deltaTime;
         }
         if (Input.GetKey("joystick 1 button 8") || Input.GetKey("tab") || Input.GetKey("backspace"))
         {
@@ -107,7 +113,8 @@ public class PlayerController : MonoBehaviour {
             }
             if((Input.GetKey("joystick 1 button 1") || Input.GetKey("c") || Input.GetKey("l")) && mana > 0 && !burnOut)
             {
-                if(magicMode == 0)
+                isCasting = true;
+                if (magicMode == 0)
                 {
                     mana -= Time.deltaTime * 5;
                     for (int i = -1; i < 2; i++)
@@ -257,6 +264,10 @@ public class PlayerController : MonoBehaviour {
                 sword.SendMessage("Swing", direction);
                 canAttack = false;
             }
+            else
+            {
+                isCasting = false;
+            }
             if ((Input.GetKeyUp("joystick 1 button 1") || Input.GetKeyUp("c") || Input.GetKeyUp("l") ||burnOut) && magicCharge > 0)
             {
                 mana -= magicCharge;
@@ -333,4 +344,21 @@ public class PlayerController : MonoBehaviour {
     }
 
 
+    void Damage(int damage)
+    {
+        if (invincSecs <= 0)
+        {
+            health -= damage;
+            invincSecs = 2.0F;
+        }
+
+        /*if (health <= 0)
+        {
+            Destroy(gameObject, 0.0F);
+        }*/
+    }
+    void Recharge()
+    {
+        mana += 5;
+    }
 }

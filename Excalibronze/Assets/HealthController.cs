@@ -11,8 +11,6 @@ public class HealthController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         heartGroup = GameObject.FindGameObjectsWithTag("HalfHeart");
-        
-        
 	}
 	
 	// Update is called once per frame
@@ -20,7 +18,8 @@ public class HealthController : MonoBehaviour {
         health = GameObject.FindWithTag("Player").GetComponent<PlayerController>().health;
         for(int i = 0; i < heartGroup.Length; i++)
         {
-            if (health < i+1)
+            int identifier = heartGroup[i].GetComponent<HeartIdentifier>().heartNumber;
+            if (health < identifier+1)
             {
                 heartGroup[i].GetComponent<SpriteRenderer>().enabled = false;
             }

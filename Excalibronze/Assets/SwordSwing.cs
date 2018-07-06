@@ -9,10 +9,13 @@ public class SwordSwing : MonoBehaviour {
     public Sprite shortSword;
     public Sprite hookedScimitar;
     public Sprite broadSword;
+    public int damage = 2;
     public int mode = 0; //0 = Shortsword, 1 = Hooked Scimitar, 2 = Broadsword, 3 = Dual Daggers.
+    
+    bool colliding = false;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         colliders = gameObject.GetComponents<Collider2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -41,6 +44,7 @@ public class SwordSwing : MonoBehaviour {
                 transform.eulerAngles = new Vector3(0, 0, 50);
             }
             spriteRenderer.enabled = true;
+            colliding = true;
             if (mode == 0)
             {
                 spriteRenderer.sprite = shortSword;
@@ -66,16 +70,13 @@ public class SwordSwing : MonoBehaviour {
         {
             colliders[0].enabled = true;
             colliders[1].enabled = false;
+            damage = 2;
         }
         if (mode == 2)
         {
             colliders[0].enabled = false;
             colliders[1].enabled = true;
-        }
-        if (mode == 3)
-        {
-            colliders[0].enabled = false;
-            colliders[1].enabled = false; 
+            damage = 4;
         }
     }
 
@@ -89,6 +90,7 @@ public class SwordSwing : MonoBehaviour {
             yield return null;
         }
         spriteRenderer.enabled = false;
+        colliding = false;
     }
 
     IEnumerator HookedScimitarAnimation(Vector3 angle, float time)
@@ -108,6 +110,18 @@ public class SwordSwing : MonoBehaviour {
         }
         spriteRenderer.flipX = false;
         spriteRenderer.enabled = false;
+        colliding = false;
     }
-    
+
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (colliding)
+        {
+            if (col.gameObject.tag == "Enemy")
+            {
+                col.gameObject.SendMessage("Damage", damage);
+            }
+        }
+    }
 }
