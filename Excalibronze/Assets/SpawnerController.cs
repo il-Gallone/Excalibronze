@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SpawnerController : MonoBehaviour {
+public class SpawnerController : EnemyBase {
 
     public GameObject enemyPrefab;
-    public int health = 200;
     float delay;
-    public float invincSecs = 0.0F;
     GameObject[] startingSpawners;
-    GameObject[] totalEnemies;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        health = 200;
         startingSpawners = GameObject.FindGameObjectsWithTag("Enemy");
         for(int i = 0; i < startingSpawners.Length; i++)
         {
@@ -24,13 +24,6 @@ public class SpawnerController : MonoBehaviour {
         StartCoroutine(Spawner());
 	}
 
-    void FixedUpdate()
-    {
-        if (invincSecs > 0)
-        {
-            invincSecs -= Time.deltaTime;
-        }
-    }
 
     IEnumerator Spawner()
     {
@@ -69,28 +62,8 @@ public class SpawnerController : MonoBehaviour {
             yield return new WaitForSeconds((startingSpawners.Length) * 2.5F);
         }
     }
-
-    void Damage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject, 0.0F);
-        }
-    }
-    void FireDamage(int damage)
-    {
-        if (invincSecs <= 0)
-        {
-            health -= damage;
-            invincSecs = 0.2F;
-            if (health <= 0)
-            {
-                Destroy(gameObject, 0.0F);
-            }
-        }
-    }
-    void WaterDamage(int damage)
+    
+    public override void WaterDamage(int damage)
     {
         if (invincSecs <= 0)
         {
@@ -98,8 +71,18 @@ public class SpawnerController : MonoBehaviour {
             invincSecs = 0.2F;
             if (health <= 0)
             {
-                Destroy(gameObject, 0.0F);
+                Death();
             }
         }
+    }
+
+    public override void Death()
+    {
+        totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (totalEnemies.Length <= 1)
+        {
+            SceneManager.LoadScene("WinState");
+        }
+        Destroy(gameObject, 0.0F);
     }
 }

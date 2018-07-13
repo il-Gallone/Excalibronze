@@ -1,32 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class BasicEnemyController : MonoBehaviour {
+public class BasicEnemyController : EnemyBase {
     
     public string direction = "up";
     public float time = 0.66F;
-    public int health = 10;
-    public float invincSecs = 0.0F;
     public Sprite up;
     public Sprite right;
     public Sprite down;
     public Sprite left;
     SpriteRenderer spriteRenderer;
-    public GameObject hpPickUpPrefab;
-    public GameObject manaPickUpPrefab;
+
 
     void Start () {
+        health = 10;
         StartCoroutine(Wander());
 	}
 
-    void FixedUpdate()
-    {
-        if (invincSecs > 0)
-        {
-            invincSecs -= Time.deltaTime;
-        }
-    }
+    
 
     IEnumerator Wander()
     {
@@ -109,52 +102,6 @@ public class BasicEnemyController : MonoBehaviour {
                 transform.position = endPos;
             }
         }
-    }
-    void Damage(int damage)
-    {
-        health -= damage;
-        if(health <= 0)
-        {
-            Death();
-        }
-    }
-    void FireDamage(int damage)
-    {
-        if (invincSecs <= 0)
-        {
-            health -= damage;
-            invincSecs = 0.2F;
-            if (health <= 0)
-            {
-                Death();
-            }
-        }
-    }
-    void WaterDamage(int damage)
-    {
-        if (invincSecs <= 0)
-        {
-            health -= damage;
-            invincSecs = 0.2F;
-            if (health <= 0)
-            {
-                Death();
-            }
-        }
-    }
-    void Death()
-    {
-        int dropChance;
-        dropChance = Random.Range(0, 10);
-        if (dropChance == 0 && GameObject.FindWithTag("Player").GetComponent<PlayerController>().health < GameObject.FindWithTag("Player").GetComponent<PlayerController>().healthCap)
-        {
-            GameObject pickup = (GameObject)GameObject.Instantiate(hpPickUpPrefab, transform.position, transform.rotation);
-        }
-        if (dropChance == 1 && GameObject.FindWithTag("Player").GetComponent<PlayerController>().mana < GameObject.FindWithTag("Player").GetComponent<PlayerController>().manaCap)
-        {
-            GameObject pickup = (GameObject)GameObject.Instantiate(manaPickUpPrefab, transform.position, transform.rotation);
-        }
-        Destroy(gameObject, 0.0F);
     }
     void OnCollisionEnter2D(Collision2D col)
     {

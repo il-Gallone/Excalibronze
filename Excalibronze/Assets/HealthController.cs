@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour {
 
@@ -27,6 +28,10 @@ public class HealthController : MonoBehaviour {
             {
                 heartGroup[i].GetComponent<SpriteRenderer>().enabled = true;
             }
+        }
+        if(health <= 0)
+        {
+            SceneManager.LoadScene("LoseState");
         }
 	}
 }
