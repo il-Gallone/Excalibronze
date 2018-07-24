@@ -8,6 +8,7 @@ TagManager:
   - Manabar
   - HalfHeart
   - Enemy
+  - DamageController
   layers:
   - Default
   - TransparentFX
@@ -17,10 +18,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - DamageCollider
+  - Enemy
+  - Obstacle
   - 
   - 
   - 

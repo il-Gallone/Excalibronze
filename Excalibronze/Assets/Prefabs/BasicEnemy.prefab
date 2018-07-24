@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61704472247617598}
   - component: {fileID: 114259242826522430}
   - component: {fileID: 114418774335280028}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BasicEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!61 &61704472247617598
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -100,18 +100,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5195386b50e953248bbb82d8e93e6c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: up
-  time: 0.66
   health: 10
   invincSecs: 0
-  up: {fileID: 21300000, guid: 6ed3c62afb3fc3e4d9f3c1ddd5bb0c28, type: 3}
-  right: {fileID: 21300000, guid: d0fdcd8fd98d01145918a99e7d280e34, type: 3}
-  down: {fileID: 21300000, guid: e3e02ddb03f7cdb4ebb57d82db4ebe03, type: 3}
-  left: {fileID: 21300000, guid: 3ea436ee7bc26e64c998070368999222, type: 3}
+  stunSecs: 0
+  earthSecs: 0
   hpPickUpPrefab: {fileID: 1841963081736808, guid: ef5ede55442024543af36bb47cbc46cd,
     type: 2}
   manaPickUpPrefab: {fileID: 1530343278210730, guid: 9cc36f64782a7304b93362f0e2cd6ffc,
     type: 2}
+  totalEnemies: []
+  direction: up
+  speed: 2
+  up: {fileID: 21300000, guid: 6ed3c62afb3fc3e4d9f3c1ddd5bb0c28, type: 3}
+  right: {fileID: 21300000, guid: d0fdcd8fd98d01145918a99e7d280e34, type: 3}
+  down: {fileID: 21300000, guid: e3e02ddb03f7cdb4ebb57d82db4ebe03, type: 3}
+  left: {fileID: 21300000, guid: 3ea436ee7bc26e64c998070368999222, type: 3}
 --- !u!114 &114418774335280028
 MonoBehaviour:
   m_ObjectHideFlags: 1
