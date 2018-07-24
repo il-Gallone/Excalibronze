@@ -30,22 +30,22 @@ public class SwordSwing : MonoBehaviour {
             if (direction == "up")
             {
                 transform.eulerAngles = new Vector3(0, 0, -40);
-                spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = 2;
             }
             if (direction == "right")
             {
                 transform.eulerAngles = new Vector3(0, 0, -130);
-                spriteRenderer.sortingOrder = 3;
+                spriteRenderer.sortingOrder = 4;
             }
             if (direction == "down")
             {
                 transform.eulerAngles = new Vector3(0, 0, 140);
-                spriteRenderer.sortingOrder = 3;
+                spriteRenderer.sortingOrder = 4;
             }
             if (direction == "left")
             {
                 transform.eulerAngles = new Vector3(0, 0, 50);
-                spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = 2;
             }
             spriteRenderer.enabled = true;
             colliding = true;
