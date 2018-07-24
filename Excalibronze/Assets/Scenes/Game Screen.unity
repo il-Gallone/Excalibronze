@@ -1376,7 +1376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 2
+  heartNumber: 1
 --- !u!1 &1090106458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 1
+  heartNumber: 0
 --- !u!1 &1291367732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 8
+  heartNumber: 7
 --- !u!1 &1345119790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,7 +1634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 5
+  heartNumber: 4
 --- !u!1 &1390042922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 6
+  heartNumber: 5
 --- !u!1001 &1472215924
 Prefab:
   m_ObjectHideFlags: 0
@@ -2068,7 +2068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 7
+  heartNumber: 6
 --- !u!1 &1976493910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2154,7 +2154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 10
+  heartNumber: 9
 --- !u!1 &2001940744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 4
+  heartNumber: 3
 --- !u!1 &2031921815
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,7 +2326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 9
+  heartNumber: 8
 --- !u!1 &2123066104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,7 +2412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc1eaee6cb32fa44bd2f0ba11f45aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartNumber: 3
+  heartNumber: 2
 --- !u!1 &2132188459
 GameObject:
   m_ObjectHideFlags: 0

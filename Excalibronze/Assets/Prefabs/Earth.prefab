@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212014448624813532}
   - component: {fileID: 50388695032986956}
   - component: {fileID: 61518681916812022}
-  - component: {fileID: 114674741770688492}
+  - component: {fileID: 114086422339652496}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114674741770688492
+--- !u!114 &114086422339652496
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1879113557318314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb88e82879d2a544fac862116f24f0f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4943175cb5c08e04bb8ac430d8638920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Stage1: {fileID: 21300000, guid: 5ba54282035647f49b98d70b4a6c7a4c, type: 3}

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212490935599445470}
   - component: {fileID: 50579766279110276}
   - component: {fileID: 61099539873680508}
-  - component: {fileID: 114986914102240036}
+  - component: {fileID: 114404905977824926}
   m_Layer: 0
   m_Name: HealthPickup
   m_TagString: Untagged
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &114986914102240036
+--- !u!114 &114404905977824926
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1841963081736808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 315547cf556ef904e9c9b85b2b60485f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6be95a222d8966b46ba310b7e8653c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupType: health
