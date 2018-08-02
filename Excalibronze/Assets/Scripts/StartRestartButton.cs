@@ -9,6 +9,6 @@ public class StartRestartButton : MonoBehaviour {
 
 	public void OnClick()
     {
-        SceneManager.LoadScene("Game Screen");
+        SceneManager.LoadScene("Menu GUI");
     }
 }

@@ -55,7 +55,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -103,6 +103,8 @@ MonoBehaviour:
   invincSecs: 0
   stunSecs: 0
   earthSecs: 0
+  onScreenX: 0
+  onScreenY: 0
   hpPickUpPrefab: {fileID: 1841963081736808, guid: ef5ede55442024543af36bb47cbc46cd,
     type: 2}
   manaPickUpPrefab: {fileID: 1530343278210730, guid: 9cc36f64782a7304b93362f0e2cd6ffc,
@@ -110,10 +112,11 @@ MonoBehaviour:
   totalEnemies: []
   direction: up
   speed: 2
-  up: {fileID: 21300000, guid: 6ed3c62afb3fc3e4d9f3c1ddd5bb0c28, type: 3}
-  right: {fileID: 21300000, guid: d0fdcd8fd98d01145918a99e7d280e34, type: 3}
-  down: {fileID: 21300000, guid: e3e02ddb03f7cdb4ebb57d82db4ebe03, type: 3}
-  left: {fileID: 21300000, guid: 3ea436ee7bc26e64c998070368999222, type: 3}
+  knockbackSecs: 0
+  up: {fileID: 21300000, guid: 5d6a8a8887e7801438ece3cc8a527faa, type: 3}
+  right: {fileID: 21300000, guid: 8afb565a7e411854a96933dd6d086fc5, type: 3}
+  down: {fileID: 21300000, guid: 5d6a8a8887e7801438ece3cc8a527faa, type: 3}
+  left: {fileID: 21300000, guid: b0f6c2067b392a44cbf62b9dc97415c6, type: 3}
 --- !u!212 &212562320296769076
 SpriteRenderer:
   m_ObjectHideFlags: 1

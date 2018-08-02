@@ -89,35 +89,33 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
+            Vector2 force = new Vector2(0, 0);
             if (Input.GetAxis("Vertical") <= -0.2)
             {
-                Vector2 force = new Vector2(0, speed);
-                rigid2D.MovePosition(rigid2D.position - force * Time.deltaTime);
+                force -= new Vector2(0, speed);
                 spriteRenderer.sprite = down;
                 direction = "down";
             }
             if (Input.GetAxis("Vertical") >= 0.2)
             {
-                Vector2 force = new Vector2(0, speed);
-                rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
+                force += new Vector2(0, speed);
                 spriteRenderer.sprite = up;
                 direction = "up";
             }
             if (Input.GetAxis("Horizontal") <= -0.2)
             {
-                Vector2 force = new Vector2(speed, 0);
-                rigid2D.MovePosition(rigid2D.position - force * Time.deltaTime);
+                force -= new Vector2(speed, 0);
                 spriteRenderer.sprite = left;
                 direction = "left";
             }
             if (Input.GetAxis("Horizontal") >= 0.2)
             {
-                Vector2 force = new Vector2(speed, 0);
-                rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
+                force += new Vector2(speed, 0);
                 spriteRenderer.sprite = right;
                 direction = "right";
             }
-            if((Input.GetKey("joystick 1 button 1") || Input.GetKey("c") || Input.GetKey("l")) && mana > 0 && !burnOut)
+            rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
+            if ((Input.GetKey("joystick 1 button 1") || Input.GetKey("c") || Input.GetKey("l")) && mana > 0 && !burnOut)
             {
                 isCasting = true;
                 if (magicMode == 0)

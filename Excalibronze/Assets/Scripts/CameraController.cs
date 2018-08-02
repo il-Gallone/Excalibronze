@@ -8,25 +8,32 @@ public class CameraController : MonoBehaviour {
     void Update () {
 
         GameObject player = GameObject.FindWithTag("Player");
-        if (transform.position.x -8 >= player.transform.position.x)
+        if (!GameManager.instance.isScreenMoving)
         {
-            player.GetComponent<PlayerController>().enabled = false;
-            StartCoroutine(MoveLeft(3.0F));
-        }
-        if (transform.position.x + 8 <= player.transform.position.x)
-        {
-            player.GetComponent<PlayerController>().enabled = false;
-            StartCoroutine(MoveRight(3.0F));
-        }
-        if (transform.position.y - 5 >= player.transform.position.y)
-        {
-            player.GetComponent<PlayerController>().enabled = false;
-            StartCoroutine(MoveDown(3.0F));
-        }
-        if (transform.position.y + 5 <= player.transform.position.y)
-        {
-            player.GetComponent<PlayerController>().enabled = false;
-            StartCoroutine(MoveUp(3.0F));
+            if (transform.position.x - 8 >= player.transform.position.x)
+            {
+                player.GetComponent<PlayerController>().enabled = false;
+                GameManager.instance.isScreenMoving = true;
+                StartCoroutine(MoveLeft(3.0F));
+            }
+            if (transform.position.x + 8 <= player.transform.position.x)
+            {
+                player.GetComponent<PlayerController>().enabled = false;
+                GameManager.instance.isScreenMoving = true;
+                StartCoroutine(MoveRight(3.0F));
+            }
+            if (transform.position.y - 5 >= player.transform.position.y)
+            {
+                player.GetComponent<PlayerController>().enabled = false;
+                GameManager.instance.isScreenMoving = true;
+                StartCoroutine(MoveDown(3.0F));
+            }
+            if (transform.position.y + 5 <= player.transform.position.y)
+            {
+                player.GetComponent<PlayerController>().enabled = false;
+                GameManager.instance.isScreenMoving = true;
+                StartCoroutine(MoveUp(3.0F));
+            }
         }
     }
     IEnumerator MoveLeft(float time)
@@ -41,6 +48,8 @@ public class CameraController : MonoBehaviour {
         }
         transform.position = endPos;
         player.GetComponent<PlayerController>().enabled = true;
+        GameManager.instance.currentScreenX--;
+        GameManager.instance.isScreenMoving = false;
     }
     IEnumerator MoveRight(float time)
     {
@@ -54,6 +63,8 @@ public class CameraController : MonoBehaviour {
         }
         transform.position = endPos;
         player.GetComponent<PlayerController>().enabled = true;
+        GameManager.instance.currentScreenX++;
+        GameManager.instance.isScreenMoving = false;
     }
     IEnumerator MoveUp(float time)
     {
@@ -67,6 +78,8 @@ public class CameraController : MonoBehaviour {
         }
         transform.position = endPos;
         player.GetComponent<PlayerController>().enabled = true;
+        GameManager.instance.currentScreenY++;
+        GameManager.instance.isScreenMoving = false;
     }
     IEnumerator MoveDown(float time)
     {
@@ -80,5 +93,7 @@ public class CameraController : MonoBehaviour {
         }
         transform.position = endPos;
         player.GetComponent<PlayerController>().enabled = true;
+        GameManager.instance.currentScreenY--;
+        GameManager.instance.isScreenMoving = false;
     }
 }

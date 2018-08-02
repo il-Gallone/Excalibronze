@@ -12,6 +12,7 @@ public class BasicEnemyController : EnemyBase {
     public Sprite down;
     public Sprite left;
     SpriteRenderer spriteRenderer;
+    
 
 	private Rigidbody2D rigid2D;
 
@@ -32,106 +33,113 @@ public class BasicEnemyController : EnemyBase {
         int directionChoice;
         while (true)
         {
-            spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            directionChoice = Random.Range(0, 4);
-            switch (directionChoice)
+            if (onScreenX == GameManager.instance.currentScreenX && onScreenY == GameManager.instance.currentScreenY && !GameManager.instance.isScreenMoving)
             {
-                case 0:
-                    {
-                        direction = "up";
-                        spriteRenderer.sprite = up;
-                        break;
-                    }
-                case 1:
-                    {
-                        direction = "right";
-                        spriteRenderer.sprite = right;
-                        break;
-                    }
-                case 2:
-                    {
-                        direction = "down";
-                        spriteRenderer.sprite = down;
-                        break;
-                    }
-                case 3:
-                    {
-                        direction = "left";
-                        spriteRenderer.sprite = left;
-                        break;
-                    }
-                default:
-                    break;
-            }
-            if(direction == "up")
-            {
-				for (float i = transform.position.y; i <= transform.position.y + 1; i += speed*Time.deltaTime)
+                spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                directionChoice = Random.Range(0, 4);
+                switch (directionChoice)
                 {
+                    case 0:
+                        {
+                            direction = "up";
+                            spriteRenderer.sprite = up;
+                            break;
+                        }
+                    case 1:
+                        {
+                            direction = "right";
+                            spriteRenderer.sprite = right;
+                            break;
+                        }
+                    case 2:
+                        {
+                            direction = "down";
+                            spriteRenderer.sprite = down;
+                            break;
+                        }
+                    case 3:
+                        {
+                            direction = "left";
+                            spriteRenderer.sprite = left;
+                            break;
+                        }
+                    default:
+                        break;
+                }
+                if (direction == "up")
+                {
+                    for (float i = transform.position.y; i <= transform.position.y + 1; i += speed * Time.deltaTime)
+                    {
 
-                    if (stunSecs > 0)
-                    {
-                        i -= speed * Time.deltaTime;
+                        if (stunSecs > 0)
+                        {
+                            i -= speed * Time.deltaTime;
+                        }
+                        else
+                        {
+                            Vector2 force = new Vector2(0, speed);
+                            rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
+                        }
+                        yield return null;
                     }
-                    else
+                }
+                if (direction == "right")
+                {
+                    for (float i = transform.position.x; i <= transform.position.x + 1; i += speed * Time.deltaTime)
                     {
-                        Vector2 force = new Vector2(0, speed);
-                        rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
+
+                        if (stunSecs > 0)
+                        {
+                            i -= speed * Time.deltaTime;
+                        }
+                        else
+                        {
+                            Vector2 force = new Vector2(speed, 0);
+                            rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
+                        }
+                        yield return null;
                     }
-                    yield return null;
+                }
+                if (direction == "down")
+                {
+                    var startPos = transform.position.y;
+                    var endPos = transform.position.y - 1;
+                    for (float i = transform.position.y; i >= transform.position.y - 1; i -= speed * Time.deltaTime)
+                    {
+                        if (stunSecs > 0)
+                        {
+                            i += speed * Time.deltaTime;
+                        }
+                        else
+                        {
+                            Vector2 force = new Vector2(0, speed);
+                            rigid2D.MovePosition(rigid2D.position - force * Time.deltaTime);
+                        }
+                        yield return null;
+                    }
+                }
+                if (direction == "left")
+                {
+                    var startPos = transform.position.x;
+                    var endPos = transform.position.x - 1;
+                    for (float i = transform.position.x; i >= transform.position.x - 1; i -= speed * Time.deltaTime)
+                    {
+                        if (stunSecs > 0)
+                        {
+                            i += speed * Time.deltaTime;
+                        }
+                        else
+                        {
+                            Vector2 force = new Vector2(speed, 0);
+                            rigid2D.MovePosition(rigid2D.position - force * Time.deltaTime);
+                        }
+                        yield return null;
+                    }
                 }
             }
-            if (direction == "right")
-			{
-				for (float i = transform.position.x; i <= transform.position.x + 1; i += speed*Time.deltaTime)
-				{
-
-                    if (stunSecs > 0)
-                    {
-                        i -= speed * Time.deltaTime;
-                    }
-                    else
-                    {
-                        Vector2 force = new Vector2(speed, 0);
-                        rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
-                    }
-                    yield return null;
-				}
-            }
-            if (direction == "down")
-			{
-				var startPos = transform.position.y;
-				var endPos = transform.position.y - 1;
-				for (float i = transform.position.y; i >= transform.position.y - 1; i -= speed*Time.deltaTime)
-                {
-                    if (stunSecs > 0)
-                    {
-                        i += speed * Time.deltaTime;
-                    }
-                    else
-                    {
-                        Vector2 force = new Vector2(0, speed);
-                        rigid2D.MovePosition(rigid2D.position - force * Time.deltaTime);
-                    }
-                    yield return null;
-				}
-            }
-            if (direction == "left")
-			{
-				var startPos = transform.position.x;
-				var endPos = transform.position.x - 1;
-				for (float i = transform.position.x; i >= transform.position.x - 1; i -= speed*Time.deltaTime)
-                {
-                    if (stunSecs > 0)
-                    {
-                        i += speed * Time.deltaTime;
-                    }
-                    else
-                    {
-                        Vector2 force = new Vector2(speed, 0);
-                        rigid2D.MovePosition(rigid2D.position - force * Time.deltaTime);
-                    }
-                    yield return null;
-				}
+            else
+            {
+                yield return null;
             }
         }
     }
@@ -139,7 +147,10 @@ public class BasicEnemyController : EnemyBase {
     {
         if (col.gameObject.tag == "DamageController")
         {
-            col.gameObject.SendMessage("Damage", 1);
+            if (stunSecs <= 0)
+            {
+                col.gameObject.SendMessage("Damage", 1);
+            }
         }
         
     }

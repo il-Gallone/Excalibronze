@@ -82,6 +82,12 @@ public class MagicColliderController : MonoBehaviour {
                 col.gameObject.SendMessage("WaterDamage", damage);
             }
         }
-        
+        if (col.gameObject.tag == "FireDestructible")
+        {
+            if(playerController.magicMode == 0)
+            {
+                col.gameObject.SendMessage("FireDamage", 1);
+            }
+        }
     }
 }

@@ -9,9 +9,12 @@ public class EnemyBase : MonoBehaviour {
     public float invincSecs = 0.0F;
     public float stunSecs = 0.0F;
     public float earthSecs = 0.0F;
+    public int onScreenX;
+    public int onScreenY;
     public GameObject hpPickUpPrefab;
     public GameObject manaPickUpPrefab;
     public GameObject[] totalEnemies;
+    public List<GameObject> totalEnemiesOnScreen = new List<GameObject>();
 
     public virtual void FixedUpdate()
     {
@@ -29,7 +32,7 @@ public class EnemyBase : MonoBehaviour {
         }
     }
 
-    public void Damage(int damage)
+    public virtual void Damage(int damage)
     {
         health -= damage;
         if (health <= 0)
@@ -88,9 +91,27 @@ public class EnemyBase : MonoBehaviour {
             GameObject pickup = (GameObject)GameObject.Instantiate(manaPickUpPrefab, transform.position, transform.rotation);
         }
         totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (totalEnemies.Length <= 1)
+        totalEnemiesOnScreen = new List<GameObject>();
+        int j = 0;
+        for (int i = 0; i < totalEnemies.Length; i++)
         {
-            SceneManager.LoadScene("WinState");
+            if ((totalEnemies[i].GetComponent<EnemyBase>().onScreenX == onScreenX &&
+                totalEnemies[i].GetComponent<EnemyBase>().onScreenY == onScreenY))
+            {
+                totalEnemiesOnScreen.Add(totalEnemies[i]);
+                j++;
+            }
+        }
+        if (totalEnemiesOnScreen.Count <= 1)
+        {
+            GameObject[] Doors = GameObject.FindGameObjectsWithTag("Door");
+            for(int i = 0; i < Doors.Length; i++)
+            {
+                if(Doors[i].GetComponent<DoorController>().onScreenX == onScreenX && Doors[i].GetComponent<DoorController>().onScreenY == onScreenY)
+                {
+                    Doors[i].SendMessage("Unlock");
+                }
+            }
         }
         Destroy(gameObject, 0.0F);
     }

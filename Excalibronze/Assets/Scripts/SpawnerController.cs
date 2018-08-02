@@ -7,18 +7,29 @@ public class SpawnerController : EnemyBase {
 
     public GameObject enemyPrefab;
     float delay;
-    GameObject[] startingSpawners;
+    GameObject[] startingSpawnersGlobal;
+    List<GameObject> startingSpawnersLocal = new List<GameObject>();
 
 	// Use this for initialization
 	void Start ()
     {
-        health = 200;
-        startingSpawners = GameObject.FindGameObjectsWithTag("Enemy");
-        for(int i = 0; i < startingSpawners.Length; i++)
+        health = 100;
+        startingSpawnersGlobal = GameObject.FindGameObjectsWithTag("Enemy");
+        int j = 0;
+        for(int i = 0; i < startingSpawnersGlobal.Length;  i++)
         {
-            if(startingSpawners[i] == gameObject)
+            if((startingSpawnersGlobal[i].GetComponent<EnemyBase>().onScreenX == onScreenX && 
+                startingSpawnersGlobal[i].GetComponent<EnemyBase>().onScreenY == onScreenY))
             {
-                delay = i * 2.5F;
+                startingSpawnersLocal.Add(startingSpawnersGlobal[i]);
+                j++;
+            }
+        }
+        for(int i = 0;  i < startingSpawnersLocal.Count; i++)
+        {
+            if(startingSpawnersLocal[i] == gameObject)
+            {
+                delay = 2.5F * i;
             }
         }
         StartCoroutine(Spawner());
@@ -30,36 +41,59 @@ public class SpawnerController : EnemyBase {
         yield return new WaitForSeconds(delay);
         while (true)
         {
-            totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-            if (totalEnemies.Length <= 15)
+            if (onScreenX == GameManager.instance.currentScreenX && onScreenY == GameManager.instance.currentScreenY && !GameManager.instance.isScreenMoving)
             {
-                int offset;
-                offset = Random.Range(0, 4);
-                switch (offset)
+                totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+                totalEnemiesOnScreen = new List<GameObject>();
+                int j = 0;
+                for (int i = 0; i < totalEnemies.Length; i++)
                 {
-                    case 0:
-                        {
-                            GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(0, 1, 0), transform.rotation);
-                            break;
-                        }
-                    case 1:
-                        {
-                            GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(0, -1, 0), transform.rotation);
-                            break;
-                        }
-                    case 2:
-                        {
-                            GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(1, 0, 0), transform.rotation);
-                            break;
-                        }
-                    case 3:
-                        {
-                            GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(-1, 0, 0), transform.rotation);
-                            break;
-                        }
+                    if ((totalEnemies[i].GetComponent<EnemyBase>().onScreenX == onScreenX &&
+                        totalEnemies[i].GetComponent<EnemyBase>().onScreenY == onScreenY))
+                    {
+                        totalEnemiesOnScreen.Add(totalEnemies[i]);
+                        j++;
+                    }
+                }
+                if (totalEnemiesOnScreen.Count < 10)
+                {
+                    int offset;
+                    offset = Random.Range(0, 4);
+                    switch (offset)
+                    {
+                        case 0:
+                            {
+                                GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(0, 1, 0), transform.rotation);
+                                enemy.GetComponent<EnemyBase>().onScreenX = onScreenX;
+                                enemy.GetComponent<EnemyBase>().onScreenY = onScreenY;
+                                break;
+                            }
+                        case 1:
+                            {
+                                GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(0, -1, 0), transform.rotation);
+                                enemy.GetComponent<EnemyBase>().onScreenX = onScreenX;
+                                enemy.GetComponent<EnemyBase>().onScreenY = onScreenY;
+                                break;
+                            }
+                        case 2:
+                            {
+                                GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(1, 0, 0), transform.rotation);
+                                enemy.GetComponent<EnemyBase>().onScreenX = onScreenX;
+                                enemy.GetComponent<EnemyBase>().onScreenY = onScreenY;
+                                break;
+                            }
+                        case 3:
+                            {
+                                GameObject enemy = (GameObject)GameObject.Instantiate(enemyPrefab, transform.position + new Vector3(-1, 0, 0), transform.rotation);
+                                enemy.GetComponent<EnemyBase>().onScreenX = onScreenX;
+                                enemy.GetComponent<EnemyBase>().onScreenY = onScreenY;
+                                break;
+                            }
+                    }
                 }
             }
-            yield return new WaitForSeconds((startingSpawners.Length) * 2.5F);
+            yield return new WaitForSeconds((startingSpawnersLocal.Count) * 2.5F);
+            
         }
     }
     
@@ -92,9 +126,27 @@ public class SpawnerController : EnemyBase {
     public override void Death()
     {
         totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (totalEnemies.Length <= 1)
+        totalEnemiesOnScreen = new List<GameObject>();
+        int j = 0;
+        for (int i = 0; i < totalEnemies.Length; i++)
         {
-            SceneManager.LoadScene("WinState");
+            if ((totalEnemies[i].GetComponent<EnemyBase>().onScreenX == onScreenX &&
+                totalEnemies[i].GetComponent<EnemyBase>().onScreenY == onScreenY))
+            {
+                totalEnemiesOnScreen.Add(totalEnemies[i]);
+                j++;
+            }
+        }
+        if (totalEnemiesOnScreen.Count <= 1)
+        {
+            GameObject[] Doors = GameObject.FindGameObjectsWithTag("Door");
+            for (int i = 0; i < Doors.Length; i++)
+            {
+                if (Doors[i].GetComponent<DoorController>().onScreenX == onScreenX && Doors[i].GetComponent<DoorController>().onScreenY == onScreenY)
+                {
+                    Doors[i].SendMessage("Unlock");
+                }
+            }
         }
         Destroy(gameObject, 0.0F);
     }
