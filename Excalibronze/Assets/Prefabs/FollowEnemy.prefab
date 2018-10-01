@@ -112,10 +112,10 @@ MonoBehaviour:
   totalEnemies: []
   totalEnemiesOnScreen: []
   speed: 1
-  up: {fileID: 21300000, guid: 6ed3c62afb3fc3e4d9f3c1ddd5bb0c28, type: 3}
-  right: {fileID: 21300000, guid: d0fdcd8fd98d01145918a99e7d280e34, type: 3}
-  down: {fileID: 21300000, guid: e3e02ddb03f7cdb4ebb57d82db4ebe03, type: 3}
-  left: {fileID: 21300000, guid: 3ea436ee7bc26e64c998070368999222, type: 3}
+  up: {fileID: 21300000, guid: b42715bddd6076342887b9706d3c85e7, type: 3}
+  right: {fileID: 21300000, guid: 8e66fa6ab1f70d44f9543c682f633899, type: 3}
+  down: {fileID: 21300000, guid: be3f2bfaadc8a0c4a89e83236585c6e5, type: 3}
+  left: {fileID: 21300000, guid: 001e60411533ffb4f9625386dd6ddbc0, type: 3}
   targetX: 0
   targetY: 0
 --- !u!212 &212340478395839278
@@ -153,7 +153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6ed3c62afb3fc3e4d9f3c1ddd5bb0c28, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be3f2bfaadc8a0c4a89e83236585c6e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Weapon
+  - DamageController
+  - Manabar
+  - HalfHeart
+  - Door
+  - FireDestructible
+  - Enemy
+  - MoveableObstacle
+  - Shadow
+  - RockJumper
+  - BossDoor
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -13,11 +25,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - DamageCollider
+  - Enemy
+  - Obstacle
+  - MagicCollider
   - 
   - 
   - 

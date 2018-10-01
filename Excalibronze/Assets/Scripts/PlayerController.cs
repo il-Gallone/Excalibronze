@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     public float speed = 3.0F;
     public float attackCooldown = 0.25F;
+    public bool daggerSwinging = false;
     public int health = 10;
     public int healthCap = 10;
     public float mana = 25.0F;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     public bool canAttack = true;
     public bool burnOut = false;
     public float invincSecs = 0.0F;
+    public float particleLimiter = 0.0F;
     public string direction = "up";
     public Sprite up;
     public Sprite right;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject waterPrefab;
     public GameObject earthPrefab;
     public GameObject particlePrefab;
+    public GameObject airPrefab;
 
     void Start()
     {
@@ -50,6 +53,10 @@ public class PlayerController : MonoBehaviour {
         {
             invincSecs -= Time.deltaTime;
         }
+        if(particleLimiter > 0)
+        {
+            particleLimiter -= Time.deltaTime;
+        }
         if (Input.GetKey("joystick 1 button 8") || Input.GetKey("tab") || Input.GetKey("backspace"))
         {
             if (Mathf.Abs(Input.GetAxis("Horizontal")) > Mathf.Abs(Input.GetAxis("Vertical")))
@@ -59,6 +66,7 @@ public class PlayerController : MonoBehaviour {
                     GameObject sword = GameObject.FindWithTag("Weapon");
                     sword.SendMessage("ChangeMode", 3);
                     magicMode = 3;
+                    attackCooldown = 0.12F;
                 }
                 if (Input.GetAxis("Horizontal") > 0.0F)
                 {
@@ -94,24 +102,40 @@ public class PlayerController : MonoBehaviour {
             {
                 force -= new Vector2(0, speed);
                 spriteRenderer.sprite = down;
+                if(direction != "down")
+                {
+                    daggerSwinging = false;
+                }
                 direction = "down";
             }
             if (Input.GetAxis("Vertical") >= 0.2)
             {
                 force += new Vector2(0, speed);
                 spriteRenderer.sprite = up;
+                if (direction != "up")
+                {
+                    daggerSwinging = false;
+                }
                 direction = "up";
             }
             if (Input.GetAxis("Horizontal") <= -0.2)
             {
                 force -= new Vector2(speed, 0);
                 spriteRenderer.sprite = left;
+                if (direction != "left")
+                {
+                    daggerSwinging = false;
+                }
                 direction = "left";
             }
             if (Input.GetAxis("Horizontal") >= 0.2)
             {
                 force += new Vector2(speed, 0);
                 spriteRenderer.sprite = right;
+                if (direction != "right")
+                {
+                    daggerSwinging = false;
+                }
                 direction = "right";
             }
             rigid2D.MovePosition(rigid2D.position + force * Time.deltaTime);
@@ -261,6 +285,33 @@ public class PlayerController : MonoBehaviour {
                         Destroy(particle4, 0.5F);
                     }
                 }
+                if (magicMode == 3)
+                {
+                    mana -= Time.deltaTime * 2.5F;
+                    if (particleLimiter <= 0)
+                    {
+                        float range = Random.Range(0.5F, 0.7F);
+                        GameObject wind = (GameObject)GameObject.Instantiate(airPrefab, transform.position + new Vector3(0, range, 0), transform.rotation);
+                        wind.transform.SetParent(gameObject.transform);
+                        Destroy(wind, 2.0F);
+                        range = Random.Range(0.5F, 0.7F);
+                        GameObject wind2 = (GameObject)GameObject.Instantiate(airPrefab, transform.position + new Vector3(range, 0, 0), transform.rotation);
+                        wind2.transform.Rotate(0, 0, -90);
+                        wind2.transform.SetParent(gameObject.transform);
+                        Destroy(wind2, 2.0F);
+                        range = Random.Range(0.5F, 0.7F);
+                        GameObject wind3 = (GameObject)GameObject.Instantiate(airPrefab, transform.position + new Vector3(0, -range, 0), transform.rotation);
+                        wind3.transform.Rotate(0, 0, 180);
+                        wind3.transform.SetParent(gameObject.transform);
+                        Destroy(wind3, 3.0F);
+                        range = Random.Range(0.5F, 0.7F);
+                        GameObject wind4 = (GameObject)GameObject.Instantiate(airPrefab, transform.position + new Vector3(-range, 0, 0), transform.rotation);
+                        wind4.transform.Rotate(0, 0, 90);
+                        wind4.transform.SetParent(gameObject.transform);
+                        Destroy(wind4, 3.0F);
+                        particleLimiter = 0.5F;
+                    }
+                }
             }
             else if ((Input.GetKeyDown("joystick 1 button 2") || Input.GetKeyDown("x") || Input.GetKeyDown("k")) && canAttack)
             {
@@ -268,6 +319,19 @@ public class PlayerController : MonoBehaviour {
                 GameObject sword = GameObject.FindWithTag("Weapon");
                 sword.SendMessage("Swing", direction);
                 canAttack = false;
+            }
+            else if((Input.GetKey("joystick 1 button 2") || Input.GetKey("x") || Input.GetKey("k")) && magicMode == 3 && canAttack)
+            {
+                isCasting = false;
+                daggerSwinging = true;
+                GameObject sword = GameObject.FindWithTag("Weapon");
+                sword.SendMessage("Swing", direction);
+                canAttack = false;
+            }
+            else if((Input.GetKeyUp("joystick 1 button 2") || Input.GetKeyUp("x") || Input.GetKeyUp("k")) && magicMode == 3)
+            {
+                daggerSwinging = false;
+                isCasting = false;
             }
             else
             {
@@ -351,10 +415,19 @@ public class PlayerController : MonoBehaviour {
 
     public void Damage(int damage)
     {
-        if (invincSecs <= 0)
+
+        if (damage > 0)
+        {
+            if (invincSecs <= 0)
+            {
+                health -= damage;
+                invincSecs = 2.0F;
+
+            }
+        }
+        else
         {
             health -= damage;
-            invincSecs = 2.0F;
         }
 
         /*if (health <= 0)

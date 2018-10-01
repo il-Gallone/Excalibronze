@@ -10,25 +10,25 @@ public class CameraController : MonoBehaviour {
         GameObject player = GameObject.FindWithTag("Player");
         if (!GameManager.instance.isScreenMoving)
         {
-            if (transform.position.x - 8 >= player.transform.position.x)
+            if (transform.position.x - 8.1 >= player.transform.position.x)
             {
                 player.GetComponent<PlayerController>().enabled = false;
                 GameManager.instance.isScreenMoving = true;
                 StartCoroutine(MoveLeft(3.0F));
             }
-            if (transform.position.x + 8 <= player.transform.position.x)
+            if (transform.position.x + 8.1 <= player.transform.position.x)
             {
                 player.GetComponent<PlayerController>().enabled = false;
                 GameManager.instance.isScreenMoving = true;
                 StartCoroutine(MoveRight(3.0F));
             }
-            if (transform.position.y - 5 >= player.transform.position.y)
+            if (transform.position.y - 5.1 >= player.transform.position.y)
             {
                 player.GetComponent<PlayerController>().enabled = false;
                 GameManager.instance.isScreenMoving = true;
                 StartCoroutine(MoveDown(3.0F));
             }
-            if (transform.position.y + 5 <= player.transform.position.y)
+            if (transform.position.y + 5.1 <= player.transform.position.y)
             {
                 player.GetComponent<PlayerController>().enabled = false;
                 GameManager.instance.isScreenMoving = true;

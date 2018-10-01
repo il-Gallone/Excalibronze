@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212170389973017502}
   - component: {fileID: 61733688509425440}
   - component: {fileID: 114838571170241266}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WallDoor
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.95, y: 0.95}
   m_EdgeRadius: 0
 --- !u!114 &114838571170241266
 MonoBehaviour:

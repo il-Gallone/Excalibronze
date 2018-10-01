@@ -60,7 +60,7 @@ public class MainMenu : MonoBehaviour
             // Load scene via play button
             if (GUI.Button(new Rect(5 * scrW, 4 * scrH, 6 * scrW, scrH), "Play"))
             {
-                SceneManager.LoadScene("Game Screen");
+                SceneManager.LoadScene("Tutorial Dialogue");
             }
 
             // When true, options is displayed

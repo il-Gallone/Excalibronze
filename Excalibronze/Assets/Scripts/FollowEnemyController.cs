@@ -37,9 +37,9 @@ public class FollowEnemyController : EnemyBase {
             if (stunSecs <= 0)
             {
                 rigid2D.MovePosition(Vector2.MoveTowards(rigid2D.position, target, speed * Time.deltaTime));
-                if (Mathf.Abs(targetX) >= Mathf.Abs(targetY))
+                if (Mathf.Abs(targetX - transform.position.x) >= Mathf.Abs(targetY - transform.position.y))
                 {
-                    if (targetX > 0)
+                    if (targetX - transform.position.x > 0)
                     {
                         spriteRenderer.sprite = right;
                     }
@@ -50,7 +50,7 @@ public class FollowEnemyController : EnemyBase {
                 }
                 else
                 {
-                    if (targetY > 0)
+                    if (targetY - transform.position.y > 0)
                     {
                         spriteRenderer.sprite = up;
                     }
